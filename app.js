@@ -30,8 +30,9 @@ app.get("/", (request, response) => {
                 data.set(row.id, row);
             }
         }
+    }, () => {
+       response.render("index", {addressBook: data});
     });
-    response.render("index", {addressBook: data});
 });
 
 app.post("/add", (request, response) => {
