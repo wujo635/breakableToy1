@@ -36,3 +36,18 @@ app.get("*", (request,response) => {
 const server = app.listen(app.get('port'), () => {
     console.log("Server started");
 });
+
+process.on("SIGINT", () => {
+    console.log("Server shutdown started");
+    db.close((err) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log("DB successfully shutdown");
+        }
+    });
+    server.close(() => {
+        console.log("Http server closed.");
+        process.exit(0);
+    });
+});
