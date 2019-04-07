@@ -27,8 +27,14 @@ app.get("/", (request, response) => {
 app.post("/add", (request, response) => {
    var firstName = faker.name.firstName();
    var lastName = faker.name.lastName();
-   var phoneNumber = faker.phone.phoneNumber();
+   var phoneNumber = faker.phone.phoneNumberFormat();
    console.log(firstName, lastName, phoneNumber);
+   db.run(`INSERT INTO addresses(firstName, lastName, phoneNumber) VALUES (?,?,?)`,
+       [firstName, lastName, phoneNumber], (err) => {
+        if (err) {
+            console.log(err);
+        }
+   });
    response.redirect("/");
 });
 
