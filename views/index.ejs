@@ -4,7 +4,7 @@
     <button>Add 'faker' address</button>
 </form>
 
-<% addressBook.forEach(function(entry) { 
-    var fullName = entry.firstName + " " + entry.lastName %>
-    <li><%= entry.id %> - <%= fullName %>, <%= entry.phoneNumber %></li>
+<% addressBook.forEach((value,key,map) => { 
+    var fullName = value.firstName + " " + value.lastName %>
+    <li><%= fullName %> - <%= value.phoneNumber %></li>
 <% }); %>
