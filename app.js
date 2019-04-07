@@ -2,6 +2,7 @@ const sqlite3 = require("sqlite3").verbose();
 
 var bodyParser = require("body-parser");
 var express = require("express");
+var faker = require("faker");
 var app = express();
 
 let db = new sqlite3.Database("./db/addressBook.db", (err) => {
@@ -17,6 +18,14 @@ app.set("port", process.env.PORT || 8080);
 
 app.get("/", (request, response) => {
     response.render("index");
+});
+
+app.post("/add", (request, response) => {
+   var firstName = faker.name.firstName();
+   var lastName = faker.name.lastName();
+   var phoneNumber = faker.phone.phoneNumber();
+   console.log(firstName, lastName, phoneNumber);
+   response.redirect("/");
 });
 
 app.get("*", (request,response) => {
