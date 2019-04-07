@@ -11,6 +11,10 @@ let db = new sqlite3.Database("./db/addressBook.db", (err) => {
     }
     console.log("Database connected");
 });
+db.run(`CREATE TABLE IF NOT EXISTS addresses (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    firstName TEXT, lastName TEXT,
+    phoneNumber TEXT)`);
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
