@@ -4,6 +4,13 @@ var bodyParser = require("body-parser");
 var express = require("express");
 var app = express();
 
+let db = new sqlite3.Database("./db/addressBook.db", (err) => {
+    if (err) {
+        console.error(err.message);
+    }
+    console.log("Database connected");
+});
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.set("port", process.env.PORT || 8080);
