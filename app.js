@@ -4,6 +4,7 @@ var bodyParser = require("body-parser");
 var express = require("express");
 var faker = require("faker");
 var app = express();
+var data = new Map();
 
 let db = new sqlite3.Database("./db/addressBook.db", (err) => {
     if (err) {
@@ -21,7 +22,16 @@ app.set("view engine", "ejs");
 app.set("port", process.env.PORT || 8080);
 
 app.get("/", (request, response) => {
-    response.render("index");
+    db.each(`SELECT * FROM addresses`, (err, row) => {
+        if (err) {
+            console.log(err);
+        } else {
+            if (!data.has(row.id)) {
+                data.set(row.id, row);
+            }
+        }
+    });
+    response.render("index", {addressBook: data});
 });
 
 app.post("/add", (request, response) => {

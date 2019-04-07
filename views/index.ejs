@@ -3,3 +3,8 @@
 <form action="/add" method="POST">
     <button>Add 'faker' address</button>
 </form>
+
+<% addressBook.forEach(function(entry) { 
+    var fullName = entry.firstName + " " + entry.lastName %>
+    <li><%= entry.id %> - <%= fullName %>, <%= entry.phoneNumber %></li>
+<% }); %>
